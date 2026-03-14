@@ -15,7 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://kalakart-frontend.onrender.com")
 public class AdminController {
     
     @Autowired

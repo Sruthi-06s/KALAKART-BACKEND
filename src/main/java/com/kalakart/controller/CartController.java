@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/cart")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://kalakart-frontend.onrender.com")
 public class CartController {
     
     @Autowired

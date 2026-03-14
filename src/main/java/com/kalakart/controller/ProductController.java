@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://kalakart-frontend.onrender.com")
 public class ProductController {
     
     @Autowired
