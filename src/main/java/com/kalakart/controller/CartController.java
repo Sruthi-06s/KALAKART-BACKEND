@@ -3,6 +3,7 @@ package com.kalakart.controller;
 import com.kalakart.model.Cart;
 import com.kalakart.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.HashMap;
@@ -65,5 +66,19 @@ public class CartController {
     public String clearCart(@PathVariable Long userId) {
         cartService.clearCart(userId);
         return "Cart cleared";
+    }
+    
+    
+    @PostMapping("/admin/import")
+    public ResponseEntity<String> importCart(@RequestBody List<Cart> cartItems) {
+        try {
+            for (Cart item : cartItems) {
+                item.setId(null);
+            }
+            cartService.saveAll(cartItems);
+            return ResponseEntity.ok("Successfully imported " + cartItems.size() + " cart items");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Import failed: " + e.getMessage());
+        }
     }
 }

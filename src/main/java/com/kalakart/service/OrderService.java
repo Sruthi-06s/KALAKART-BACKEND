@@ -171,4 +171,11 @@ public class OrderService {
         order.setStatus("CANCELLED");
         return orderRepository.save(order);
     }
+    
+    public List<Order> saveAll(List<Order> orders) {
+        return orderRepository.saveAll(orders);
+    }
+    public List<OrderItem> saveAllItems(List<OrderItem> orderItems) {
+        return orderItemRepository.saveAll(orderItems);
+    }
 }

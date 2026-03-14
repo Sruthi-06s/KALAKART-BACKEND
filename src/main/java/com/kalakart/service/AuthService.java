@@ -107,4 +107,8 @@ public class AuthService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+    
+    public List<User> saveAll(List<User> users) {
+        return userRepository.saveAll(users);
+    }
 }

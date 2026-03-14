@@ -117,4 +117,7 @@ public class CartService {
             .mapToDouble(Cart::getTotalPrice)
             .sum();
     }
+    public List<Cart> saveAll(List<Cart> cartItems) {
+        return cartRepository.saveAll(cartItems);
+    }
 }
