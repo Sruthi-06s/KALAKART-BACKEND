@@ -93,4 +93,8 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+ // In ProductService.java
+    public List<Product> saveAll(List<Product> products) {
+        return productRepository.saveAll(products);
+    }
 }

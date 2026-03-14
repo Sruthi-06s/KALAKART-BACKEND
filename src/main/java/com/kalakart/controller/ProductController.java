@@ -3,6 +3,7 @@ package com.kalakart.controller;
 import com.kalakart.model.Product;
 import com.kalakart.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class ProductController {
         return productService.getProductsByArtisan(artisanId);
     }
     
-    // ===== ARTISAN ENDPOINTS (need to add security later) =====
+    // ===== ARTISAN ENDPOINTS =====
     
     // Add product (artisan only)
     @PostMapping("/artisan/{artisanId}")
@@ -71,5 +72,24 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "Product deleted successfully";
+    }
+    
+    // ===== ADMIN ENDPOINTS (for data migration) =====
+    
+    // Bulk import products (temporary endpoint for migration)
+    @PostMapping("/admin/import")
+    public ResponseEntity<String> importProducts(@RequestBody List<Product> products) {
+        try {
+            // Set IDs to null so PostgreSQL generates new ones
+            for (Product product : products) {
+                product.setId(null);
+            }
+            
+            // Save all products
+            List<Product> savedProducts = productService.saveAll(products);
+            return ResponseEntity.ok("Successfully imported " + savedProducts.size() + " products");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Import failed: " + e.getMessage());
+        }
     }
 }
